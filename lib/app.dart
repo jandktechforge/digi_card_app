@@ -18,9 +18,9 @@ class DigicardApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: GoogleFonts.orbitron().fontFamily,
+        fontFamily: GoogleFonts.poppins().fontFamily,
         textTheme: TextTheme(
-          bodyMedium: GoogleFonts.orbitron(
+          bodyMedium: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: DigicardStyles.primaryColor,

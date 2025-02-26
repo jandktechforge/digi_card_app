@@ -8,53 +8,73 @@ class CubeCard extends StatelessWidget {
   final Image? image;
   final Function onTap;
 
-  const CubeCard(
-      {Key? key, required this.title, required this.onTap, this.image})
-      : super(key: key);
+  const CubeCard({
+    Key? key,
+    required this.title,
+    required this.onTap,
+    this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return GestureDetector(
       onTap: () => onTap(),
-      child: Container(
-        width: screenWidth * 0.45,
-        height: screenHeight * 0.10,
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: DigicardStyles.backgroundColor, // Card background color
-          border: Border.all(
-            color: DigicardStyles.accentColor,
-            width: 1, // Accent-colored border
-          ),
-          borderRadius: BorderRadius.circular(12), // Rounded corners
-        ),
-        child: DefaultTextStyle(
-          style: GoogleFonts.orbitron(
-            fontSize: 16,
-            color: DigicardStyles.textColor,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (image != null)
-                SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: ColorFiltered(
-                    colorFilter: const ColorFilter.mode(
-                        DigicardStyles.accentColor, BlendMode.srcIn),
-                    child: image,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          // Use constraints to determine available width and height
+          double cardWidth = constraints.maxWidth < 150
+              ? constraints.maxWidth * 0.45
+              : 150.0; // Cap width or scale dynamically
+          double cardHeight = constraints.maxHeight < 80
+              ? constraints.maxHeight * 0.10
+              : 80.0; // Cap height or scale dynamically
+
+          return Container(
+            width: cardWidth,
+            height: cardHeight,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: DigicardStyles.backgroundColor,
+              border: Border.all(
+                color: DigicardStyles.accentColor,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: DefaultTextStyle(
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                color: DigicardStyles.textColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (image != null)
+                    SizedBox(
+                      width: cardWidth * 0.2, // 20% of card width
+                      height: cardHeight * 0.4, // 40% of card height
+                      child: ColorFiltered(
+                        colorFilter: const ColorFilter.mode(
+                          DigicardStyles.accentColor,
+                          BlendMode.srcIn,
+                        ),
+                        child: image,
+                      ),
+                    ),
+                  SizedBox(height: cardHeight * 0.15), // 15% of card height
+                  Flexible(
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-              const SizedBox(height: 15),
-              Text(title),
-            ],
-          ),
-        ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

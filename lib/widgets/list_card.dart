@@ -53,7 +53,7 @@ class ListCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12), // Rounded corners
       ),
       child: DefaultTextStyle(
-        style: GoogleFonts.orbitron(
+        style: GoogleFonts.poppins(
           fontSize: 18,
           color: DigicardStyles.accentColor,
         ),

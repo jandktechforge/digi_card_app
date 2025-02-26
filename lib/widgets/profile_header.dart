@@ -149,7 +149,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
     required String placeholder,
     required VoidCallback onEditToggle,
   }) {
-    final textStyle = GoogleFonts.orbitron(
+    final textStyle = GoogleFonts.poppins(
       textStyle: TextStyle(fontSize: fontSize, color: Colors.white),
     );
 
