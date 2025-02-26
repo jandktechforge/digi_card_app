@@ -8,6 +8,7 @@ import "../pages/qr_page.dart";
 import "../providers/navigation_provider.dart";
 import "../providers/qr_data_provider.dart";
 import "../styles/styles.dart";
+import "../utils/ad_service.dart";
 import "navigation/destination.dart";
 
 class DefaultLayout extends StatefulWidget {
@@ -29,9 +30,27 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   int _currentIndex = 1;
   bool _isSplashRoute = true;
 
+  final AdService adService = AdService();
+  bool _isAdLoaded = false;
+
   @override
   void initState() {
     super.initState();
+    // Load Banner Ad
+    adService.loadGoogleBannerAd(() {
+      setState(() {
+        _isAdLoaded = true;
+      });
+    });
+
+    // Load Interstitial Ad
+    adService.loadInterstitialAd();
+
+    // Wait for 3 seconds before trying to show the interstitial ad
+    Future.delayed(const Duration(seconds: 3), () {
+      adService.showInterstitialAd();
+    });
+
     // Set up destination views
     destinationViews = allDestinations.map((Destination destination) {
       switch (destination.route) {
@@ -46,6 +65,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
       }
     }).toList();
 
+    // Switch from splash to main layout after 5 seconds
     Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         _isSplashRoute = false;
@@ -94,41 +114,54 @@ class _DefaultLayoutState extends State<DefaultLayout> {
 
     return Scaffold(
       backgroundColor: DigicardStyles.accentColor,
-      body: PageView.builder(
-        controller: nav.pageController,
-        itemCount: allDestinations.length,
-        onPageChanged: (index) {
-          setState(() => _currentIndex = index);
-        },
-        itemBuilder: (context, index) {
-          return destinationViews[index];
-        },
-      ),
-      bottomNavigationBar: NavigationBar(
-        height: 40,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        indicatorColor: Colors.transparent,
-        backgroundColor: DigicardStyles.accentColor,
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (int index) {
-          if (index == _currentIndex) return;
-          setState(() => _currentIndex = index);
-          nav.navigateToPage(
-            index,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-          qrData.reset();
-        },
-        destinations: allDestinations.map((Destination destination) {
-          return NavigationDestination(
-            icon: Icon(destination.info.icon,
-                color: _currentIndex == destination.index
-                    ? DigicardStyles.primaryColor
-                    : Colors.grey[400]),
-            label: destination.info.title,
-          );
-        }).toList(),
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: nav.pageController,
+              itemCount: allDestinations.length,
+              onPageChanged: (index) {
+                setState(() => _currentIndex = index);
+              },
+              itemBuilder: (context, index) {
+                return destinationViews[index];
+              },
+            ),
+          ),
+          // Banner ad placed above the bottom navigation bar
+          if (_isAdLoaded)
+            Container(
+              alignment: Alignment.center,
+              child: adService.getGoogleBannerAd(),
+            ),
+          // Bottom navigation bar
+          NavigationBar(
+            height: 40,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            indicatorColor: Colors.transparent,
+            backgroundColor: DigicardStyles.accentColor,
+            selectedIndex: _currentIndex,
+            onDestinationSelected: (int index) {
+              if (index == _currentIndex) return;
+              setState(() => _currentIndex = index);
+              nav.navigateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+              qrData.reset();
+            },
+            destinations: allDestinations.map((Destination destination) {
+              return NavigationDestination(
+                icon: Icon(destination.info.icon,
+                    color: _currentIndex == destination.index
+                        ? DigicardStyles.primaryColor
+                        : Colors.grey[400]),
+                label: destination.info.title,
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }

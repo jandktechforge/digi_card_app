@@ -2,7 +2,10 @@
 file_selector_linux=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.3+2/
 file_selector_macos=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.4+2/
 file_selector_windows=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+4/
+firebase_core=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/firebase_core-3.12.1/
+firebase_core_web=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/firebase_core_web-2.21.1/
 flutter_plugin_android_lifecycle=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.24/
+google_mobile_ads=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/google_mobile_ads-5.3.1/
 image_cropper=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/image_cropper-9.0.0/
 image_cropper_for_web=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/image_cropper_for_web-6.0.2/
 image_picker=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/image_picker-1.1.2/
@@ -30,3 +33,6 @@ url_launcher_linux=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/url_laun
 url_launcher_macos=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.2/
 url_launcher_web=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/url_launcher_web-2.4.0/
 url_launcher_windows=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.4/
+webview_flutter=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/webview_flutter-4.10.0/
+webview_flutter_android=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/webview_flutter_android-4.3.2/
+webview_flutter_wkwebview=/home/muhammadhaseebjavaid/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.18.2/

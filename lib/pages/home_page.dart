@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../utils/ad_service.dart';
 import '../utils/messageLaunchers.dart';
 import '../widgets/cube_card.dart';
 import '../widgets/list_card.dart';
@@ -13,6 +14,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AdService adService = AdService();
+
     return Scaffold(
       backgroundColor: DigicardStyles.backgroundColor,
       body: SingleChildScrollView(
